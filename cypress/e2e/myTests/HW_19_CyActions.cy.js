@@ -10,6 +10,7 @@ describe('HW_19_Validations', () => {
         passwordField: '#signupPassword',
         repeatPassword: '#signupRepeatPassword',
         errorMessage: '.invalid-feedback p',
+        // registerButton: '.button.btn.btn-primary'
 
     }
 
@@ -145,5 +146,22 @@ describe('HW_19_Validations', () => {
         cy.get (formSelectors.errorMessage).should ('have.css','color', 'rgb(220, 53, 69)').and ('be.visible');
 
 
+});
+    it('Register button is active, user is created ', () => {
+       cy.get (formSelectors.nameField).focus().type ('Yana');
+       cy.get (formSelectors.lastNameField).focus().type ('Repey');
+       cy.get (formSelectors.emailField).focus().type('1@gmail.com');
+       cy.get (formSelectors.passwordField).focus().type('Hillel2025');
+       cy.get (formSelectors.repeatPassword).focus().type('Hillel2025');
+       cy.contains('Register').click();
+});
+
+    it('Register button is disabled, user is not created ', () => {
+       cy.get (formSelectors.nameField).focus().type ('Yana');
+       cy.get (formSelectors.lastNameField).focus().type ('Repey');
+       cy.get (formSelectors.emailField).focus().type('1@gmail.com');
+       cy.get (formSelectors.passwordField).focus().type('Hillel2025');
+       cy.get (formSelectors.repeatPassword).focus().type('Hillel2024');
+       cy.contains('Register').should('have.attr','disabled');
 });
 });
